@@ -1,0 +1,197 @@
+<div *ngIf="auth.usuario | async as Usuario">
+<!-- Inicio Fondo -->
+<div class="fondo">
+  <!-- NavBar -->
+  <nav class="navbar navbar-expand-lg navbar-light  fixed-top"style="background-color: url(https://firebasestorage.googleapis.com/v0/b/umakeit-bsu-p1.appspot.com/o/b97834c5ba1fb532b5ee61136914fd16.jpg?alt=media&token=8b7fac5b-689f-4506-bfcd-c5ea555cb1ff)">
+
+    <button routerLink="/home" style="border-radius:8px"><img  style="border-radius: 10px; height: 60px;" src="https://firebasestorage.googleapis.com/v0/b/umakeit-bsu-p1.appspot.com/o/logoImg.jpg?alt=media&token=c911f269-e5c9-4229-a2ff-0eb0394872e9" ></button>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{Usuario.name}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" routerLink="/home" routerLinkActive="active" >Tienda</a>
+              <a class="dropdown-item" routerLink="/carrito" routerLinkActive="active" >Mi carrito</a>
+              <a class="dropdown-item" routerLink="/orden" routerLinkActive="active">Orden</a>
+              <a class="dropdown-item" routerLink="/pago" routerLinkActive="active" >Checkout</a>
+              <a class="dropdown-item" routerLink="/cambiarClave" routerLinkActive="active" >Cambiar Clave</a>
+              <hr class="m-1">
+              <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Cerrar Sesión</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    
+  </nav>
+  
+      <!-- Fin NavBar -->
+
+      <!--Inicio Row-->
+  <div class="row">
+    <!--Inicio Col-->
+    <div class="col">
+  <div class="container">
+      <div class="row mb-5"></div>
+
+      <div class="row  mt-2 mb-5"></div>
+
+      <div class="row">
+
+        <div class="col-2"></div>
+        <div class="col-8">
+          <!-- Pago Cuadro -->
+          <div class="recuadroPago">
+            
+            <!-- Inicio Fila -->
+            <div class="row mt-2 mb-3 justify-content-center">
+              <h2>Factura</h2>
+            </div>
+            <!-- Fin Fila -->
+
+            <!-- Inicio Fila -->
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="row">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="cart">
+                                <tr *ngFor="let product of cart.products; let i = index">
+                                    <td>{{product.cantidad}}</td>
+                                    <td>{{product.nombre}}</td>
+                                    <td>${{product.precio}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+            </div>
+            <!-- Fin Fila -->
+
+            <!-- Inicio Fila -->
+            <div class="row">
+                <p><b>Precio total: </b>${{total}}</p>
+                <p><b>Precio con IVA: </b>${{totalIva}}</p>
+            </div>
+            <!-- Fin Fila -->
+
+          </div>
+          <!-- Fin Cuadro -->
+        </div>
+        <div class="col-2"></div>
+       
+      </div>
+    
+  </div>
+
+</div>
+<!--Fin Col-->
+
+</div>
+<!--Fin Row-->
+
+<!--Inicio Row-->
+<div class="row">
+    <!--Inicio Col-->
+    <div class="col">
+  <div class="container">
+      <div class="row mb-5"></div>
+
+      <div class="row  mt-5 mb-5"></div>
+
+      <div class="row">
+
+        <div class="col-3"></div>
+        <div class="col-6">
+          <!-- Pago Cuadro -->
+          <div class="recuadroPago">
+            
+            <!-- Inicio Fila -->
+            <div class="row mb-4 justify-content-center">
+              <h2>Dirección de envío</h2>
+            </div>
+            <!-- Fin Fila -->
+
+            <!-- Inicio Fila -->
+            <div class="row">
+              <!--Inicio Form Pago-->
+
+              <form>
+                <div class="form-row">
+                  <div class="form-group col">
+                    <label for="inputNombre">Nombre</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="nombre">
+                  </div>
+                  <div class="form-group col">
+                    <label for="inputApellido">Apellido</label>
+                    <input type="text" class="form-control" id="inputApellido" placeholder="apellido">
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="inputAdress">Dirección</label>
+                        <input type="text" class="form-control" id="inputAdress" placeholder="st 45 Main St">
+                      </div>
+                      <div class="form-group col">
+                        <label for="inputAdress2">Dirección</label>
+                        <input type="text" class="form-control" id="inputAdress2" placeholder="st 45 Main St">
+                      </div>
+                </div> 
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="inputTlf">Teléfono</label>
+                        <input type="text" class="form-control" id="inputTlf" placeholder="+58...">
+                      </div>
+                </div>
+                <div class="row justify-content-center mt-1">
+                    <button type="submit" (click)="openModal(template)" class="btn btn-secondary">Comprar</button>
+                </div>
+                
+              </form>
+
+              <!--Fin Form Pago-->
+            </div>
+            <!-- Fin Fila -->
+
+            <!-- Inicio Fila -->
+            <div class="row"></div>
+            <!-- Fin Fila -->
+
+          </div>
+          <!-- Fin Cuadro -->
+        </div>
+        <div class="col-3"></div>
+       
+      </div>
+    
+  </div>
+
+</div>
+<!--Fin Col-->
+
+</div>
+<!--Fin Row-->
+
+</div>
+<!-- Fin Fondo -->
+</div>
+<!-- Modal de confirmacion para paypal -->
+<ng-template #template>
+    <div class="modal-body text-center">
+      <p>Esta seguro de la compra ?</p>
+      <div class="row">
+          <div class="col-md-3" id="paypal-checkout-btn"></div>
+      </div>
+    </div>
+</ng-template>

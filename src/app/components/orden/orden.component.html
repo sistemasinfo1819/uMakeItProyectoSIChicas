@@ -1,0 +1,126 @@
+<div *ngIf="auth.usuario | async as Usuario">
+    <!-- Inicio Fondo -->
+    <div class="fondo">
+      <!-- NavBar -->
+      <nav class="navbar navbar-expand-lg navbar-light  fixed-top"style="background-color: url(https://firebasestorage.googleapis.com/v0/b/umakeit-bsu-p1.appspot.com/o/b97834c5ba1fb532b5ee61136914fd16.jpg?alt=media&token=8b7fac5b-689f-4506-bfcd-c5ea555cb1ff)">
+    
+        <button routerLink="/home" style="border-radius:8px"><img  style="border-radius: 10px;height: 60px;" src="https://firebasestorage.googleapis.com/v0/b/umakeit-bsu-p1.appspot.com/o/logoImg.jpg?alt=media&token=c911f269-e5c9-4229-a2ff-0eb0394872e9" ></button>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{Usuario.name}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" routerLink="/home" routerLinkActive="active" >Tienda</a>
+                  <a class="dropdown-item" routerLink="/carrito" routerLinkActive="active" >Mi carrito</a>
+                  <a class="dropdown-item" routerLink="/pago" routerLinkActive="active" >Checkout</a>
+                  <a class="dropdown-item" routerLink="/cambiarClave" routerLinkActive="active" >Cambiar Clave</a>
+                  <hr class="m-1">
+                  <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Cerrar Sesión</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        
+      </nav>
+      
+          <!-- Fin NavBar -->
+                <!--Inicio Row-->
+      <div class="row">
+          <!--Inicio Col-->
+          <div class="col">
+        <div class="container">
+            <div class="row mb-5"></div>
+      
+            <div class="row  mt-2 mb-5"></div>
+      
+            <div class="row">
+      
+              <div class="col-2"></div>
+              <div class="col-8">
+                <!-- Pago Cuadro -->
+                <div class="recuadroPago">
+                  
+                  <!-- Inicio Fila -->
+                  <div class="row mt-2 mb-3 justify-content-center">
+                    <h2>Orden</h2>
+                  </div>
+                  <!-- Fin Fila -->
+      
+                  <!-- Inicio Fila -->
+                  <div class="container-fluid">
+                  <div class="row">
+                      <table class="table">
+                          <thead class="thead-dark">
+                              <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Monto</th>
+                                  <th scope="col">Ver Detalle</th>
+                              </tr>
+                          </thead>
+                          <tbody *ngIf="orders">
+                              <tr *ngFor="let orden of orders; let i = index">
+                                  <td>{{i + 1}}</td>
+                                  <td>{{orden.precio}}</td>
+                                  <td>
+                                      <button type="button" class="btn btn-info" (click)="openModal(template, orden)">
+                                          Ver Detalle
+                                      </button>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                </div>
+                  <!-- Fin Fila -->
+      
+                  <!-- Inicio Fila -->
+                  <!-- Fin Fila -->
+      
+                </div>
+                <!-- Fin Cuadro -->
+              </div>
+              <div class="col-2"></div>
+            </div>
+          
+        </div>
+      
+      </div>
+      <!--Fin Col-->
+    
+      </div>
+      <!--Fin Row-->
+    
+    </div>
+    <!-- Fin Fondo -->
+    </div>
+
+  <!--Modal ver detalle-->
+    <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Detalle de la Orden</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let producto of selectedOrder.producto">
+            <h4 style="text-align: center">Orden</h4>
+            <p>Nombre: {{producto.nombre}}</p>
+            <p>Precio: {{producto.precio}}</p>
+            <p>Cantidad: {{producto.cantidad}}</p>
+            <div *ngIf="producto.extras">
+                <div *ngIf="!producto.extras.length==0">
+                    <div *ngFor="let extra of producto.extras">
+                        <p>Extras: {{extra.nombreExtra}}</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>

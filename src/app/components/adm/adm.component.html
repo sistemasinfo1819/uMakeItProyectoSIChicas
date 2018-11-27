@@ -1,0 +1,288 @@
+<div *ngIf="auth.usuario | async; then autenticado "></div>
+
+<ng-template #autenticado>
+    <div *ngIf="auth.usuario | async as Usuario">
+        <div class="fondoPrincipal">
+            <!-- GRID -->
+            <!-- NavBar -->
+            <nav class="navbar navbar-expand-lg navbar-light  fixed-top" style="background-image: url(https://firebasestorage.googleapis.com/v0/b/umakeit-bsu-p1.appspot.com/o/b97834c5ba1fb532b5ee61136914fd16.jpg?alt=media&token=8b7fac5b-689f-4506-bfcd-c5ea555cb1ff)">
+
+                <button routerLink="/home" style="border-radius:8px"><img  style="border-radius: 10px;height: 60px;" src="https://firebasestorage.googleapis.com/v0/b/umakeit-bsu-p1.appspot.com/o/logoImg.jpg?alt=media&token=c911f269-e5c9-4229-a2ff-0eb0394872e9" ></button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <button type="button" class="btn btn-secondary" (click)="openModal(template)">Agregar</button>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              {{Usuario.name}}
+                             </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" routerLink="/administrador" routerLinkActive="active">Administrador</a>
+                                <hr class="m-1">
+                                <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Cerrar Sesión</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Fin NavBar -->
+
+            <!-- Inicio row -->
+            <div class="row mt-5"></div>
+            <!-- Fin row -->
+
+            <!-- Inicio row -->
+            <div class="row mt-5 mb-3 justify-content-center">
+                <h2 style="font-family: 'Lobster', cursive; font-size: 54px">Entradas</h2>
+            </div>
+            <!-- Fin row -->
+
+            <!-- Inicio row -->
+            <div class="row m-3">
+
+                <!-- Card Entrada -->
+                <div *ngFor="let entrada of entradas">
+                    <div class="card  m-1" style="width: 20rem; border-radius: 20px">
+                        <img class="card-img-top" src="{{entrada.photoUrl}}" alt="Card image cap" style="width: 318px;
+          height: 290px;">
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align: center; font-weight: bold">{{entrada.nombre}}</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Precio: {{entrada.precio}}</li>
+                            <li class="list-group-item">Descripción: {{entrada.descripcion}}</li>
+                            <li class="list-group-item">Disponibilidad: {{entrada.disponible}}</li>
+
+                        </ul>
+                        <div class="card-body">
+                            <button class="btn btn-success mr-1" (click)="modificarP(entrada, ModificarTemplate)">Modificar</button>
+                            <button class="btn btn-danger" (click)="eliminarP(entrada)">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Card -->
+
+            </div>
+            <!-- Fin row -->
+
+            <!-- Inicio row -->
+            <div class="row m-3 justify-content-center">
+                <h2 style="font-family: 'Lobster', cursive; font-size: 54px">Principales</h2>
+            </div>
+            <!-- Fin row -->
+
+            <!-- Inicio row -->
+            <div class="row m-3">
+                <!-- Card Principal -->
+                <div *ngFor="let principal of principales">
+                    <div class="card  m-1" style="width: 20rem; border-radius: 20px">
+                        <img class="card-img-top" style="width: 318px;
+            height: 290px;" src="{{principal.photoUrl}}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align: center; font-weight: bold">{{principal.nombre}}</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Precio: {{principal.precio}}</li>
+                            <li class="list-group-item">Descripción: {{principal.descripcion}}</li>
+                            <li class="list-group-item">Disponibilidad: {{principal.disponible}}</li>
+
+                        </ul>
+                        <div class="card-body">
+                            <button class="btn btn-success mr-2" (click)="modificarP(principal, ModificarTemplate)">Modificar</button>
+                            <button class="btn btn-danger" (click)="eliminarP(principal)">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Card -->
+
+            </div>
+            <!-- Fin row -->
+
+            <!-- Inicio row -->
+            <div class="row m-3 justify-content-center">
+                <h2 style="font-family: 'Lobster', cursive; font-size: 54px">Postres</h2>
+            </div>
+            <!-- Fin row -->
+
+            <!-- Inicio row -->
+            <div class="row m-3">
+                <!-- Card Postre -->
+                <div *ngFor="let postre of postres">
+                    <div class="card  m-1" style="width: 20rem;border-radius: 20px">
+                        <img class="card-img-top" style="width: 318px;
+            height: 290px;" src="{{postre.photoUrl}}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align: center; font-weight: bold">{{postre.nombre}}</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Precio: {{postre.precio}}</li>
+                            <li class="list-group-item">Descripción: {{postre.descripcion}}</li>
+                            <li class="list-group-item">Disponibilidad: {{postre.disponible}}</li>
+
+                        </ul>
+                        <div class="card-body">
+                            <button class="btn btn-success mr-2" (click)="modificarP(postre, ModificarTemplate)">Modificar</button>
+                            <button class="btn btn-danger" (click)="eliminarP(postre)">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Card -->
+            </div>
+            <!-- Fin row -->
+
+            <!-- Fin GRID -->
+        </div>
+    </div>
+</ng-template>
+<!-- auth fin -->
+<!--Modal Añadir-->
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title" style="text-align:center">Agregar Producto</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <!--Inicio Form Pago-->
+
+        <form>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="inputNombre">Nombre</label>
+                    <input #nombreP type="text" class="form-control" id="inputName" placeholder="Nombre">
+                </div>
+                <div class="form-group col">
+                    <label for="inputDescripcion">Descripción</label>
+                    <input #descripcionP type="text" class="form-control" id="inputDescripcion" placeholder="Descripción">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="inputPrecio">Precio</label>
+                    <input #precioP type="number" class="form-control" id="inputPrecio" placeholder="Precio">
+                </div>
+                <div class="form-group col">
+                    <label for="inputDispo">Disponibilidad</label>
+                    <select #disponibilidadP id="inputDispo" class="form-control">
+                      <option selected>Disponible</option>
+                      <option>No disponible</option>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label for="inputTipo">Tipo</label>
+                    <select #tipoP id="inputTipo" class="form-control">
+                      <option selected>entrada</option>
+                      <option>principal</option>
+                      <option>postre</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <input #inputFile class="hidden" type="file" class="custom-file-input"(change)="upload($event)" accept=".png,.jpg" id="customFile">
+                    <button type="button" class="btn btn-sm btn-success" (click)="inputFile.click()">
+                        Subir foto
+                    </button>  
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="row justify-content-center mt-1">
+                    <button type="button" class="btn btn-default ml-4 mr-1" (click)="confirm(nombreP,descripcionP,precioP,disponibilidadP,tipoP)">Añadir</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">Cerrar</button>
+                </div>
+            </div>
+
+        </form>
+
+        <!--Fin Form Pago-->
+
+    </div>
+</ng-template>
+
+<!--Fin modal añadir-->
+
+<!--Modal Modificar-->
+<ng-template #ModificarTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title" style="text-align:center">Modifcar Producto</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <!--Inicio Form Pago-->
+
+        <form>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="inputNombre">Nombre</label>
+                    <input [(ngModel)]="producto2.nombre" type="text" class="form-control" id="inputName" name="inputName" placeholder="Nombre">
+                </div>
+                <div class="form-group col">
+                    <label for="inputDescripcion">Descripción</label>
+                    <input [(ngModel)]="producto2.descripcion" type="text" class="form-control" name="inputDescripcion" id="inputDescripcion" placeholder="Descripción">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="inputPrecio">Precio</label>
+                    <input [(ngModel)]="producto2.precio" type="number" class="form-control" name="inputPrecio" id="inputPrecio" placeholder="Precio">
+                </div>
+                <div class="form-group col">
+                    <label for="inputDispo">Disponibilidad</label>
+                    <select #Disponible type= "select" id="inputDispo" name="inputDispo" class="form-control">
+                        <option selected>Disponible</option>
+                        <option>No disponible</option>
+                      </select>
+                </div>
+                <div class="form-group col">
+                    <label for="inputTipo">Tipo</label>
+                    <select [(ngModel)]="producto2.tipo" id="inputTipo" name="inputTipo" class="form-control">
+                        <option selected>entrada</option>
+                        <option>principal</option>
+                        <option>postre</option>
+                      </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <input #inputFile class="hidden" type="file" class="custom-file-input"(change)="upload($event)" accept=".png,.jpg" id="customFile">
+                    <button type="button" class="btn btn-sm btn-success" (click)="inputFile.click()">
+                        Subir foto
+                    </button>  
+                </div>
+            </div>
+  
+            <div class="form-row">
+                <p>Extras:</p>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="inputNombreE">Nombre</label>
+                    <input #nombreE type="text" class="form-control" id="inputName" placeholder="Nombre">
+                </div>
+                <div class="form-group col">
+                    <label for="inputPrecioE">Precio</label>
+                    <input #precioE type="number" class="form-control" id="inputPrecioE" placeholder="Precio">
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-1">
+                <button type="button" class="btn btn-primary" (click)="anadirExtra(nombreE,precioE)">Añadir Extra</button>
+                <button type="button" class="btn btn-default mr-1" (click)="confirm2(Disponible)">Modificar</button>
+                <button type="button" class="btn btn-primary" (click)="decline2()">Cerrar</button>
+            </div>
+
+        </form>
+
+        <!--Fin Form Pago-->
+
+    </div>
+</ng-template>
+
+<!--Fin modal modificar-->
